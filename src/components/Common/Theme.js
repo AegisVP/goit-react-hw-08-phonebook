@@ -2,16 +2,22 @@ export const theme = {
   colors: {
     defaultText: '#000000',
     mediumText: '#555555',
+    accentText: '#ffee55',
     inverseText: '#ffffff',
     secondBackground: '#f0f0f0',
     pageBackground: '#ffffff',
-    buttonColor: 'rgb(180, 200, 255)',
+    pageBackgroundAccent: '#88bbff',
+    buttonColor: '#80b3f0',
+    buttonColorAccent: '#90c3cff',
+    buttonColorActive: '#ffee55',
   },
   fontSizes: {
     s: '12px',
     m: '16px',
     l: '24px',
     xl: '36px',
+    xxl: '58px',
+    xxxl: '96px',
   },
   fontWeights: {
     normal: 400,
@@ -24,8 +30,6 @@ export const theme = {
     large: '10px',
     round: '50%',
   },
-  margin: `margin: ${returnParams}`,
-  padding: `padding: ${returnParams}`,
   mp: returnParams,
 };
 
