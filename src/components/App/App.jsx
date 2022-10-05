@@ -1,28 +1,26 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Loading } from 'components/Common/LoadingPage';
 import { refreshUser } from 'redux/auth/authOperations';
-import { selectIsRefreshingUser } from 'redux/selectors';
-import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
+import { useAuth } from 'hooks/useAuth';
 
 const HomePage = lazy(() => import('pages/HomePage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const SignupPage = lazy(() => import('pages/SignupPage'));
 const CommonLayout = lazy(() => import('pages/CommonLayout'));
 const Phonebook = lazy(() => import('pages/Phonebook'));
 const AddContact = lazy(() => import('pages/AddContact'));
-const UserForm = lazy(() => import('pages/UserForm'));
 const Logout = lazy(() => import('pages/Logout'));
 
 export const App = () => {
-  const isRefreshing = useSelector(selectIsRefreshingUser);
+  const { isRefreshing } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isRefreshing) return;
 
-    console.log(' - Dispatching refreshUser');
     dispatch(refreshUser());
-    console.log(' - Finished refreshUser');
   }, [dispatch, isRefreshing]);
 
   return (
@@ -48,7 +46,7 @@ export const App = () => {
           path="phonebook"
           element={
             <Suspense fallback={<Loading text="Loading phonebook..." />}>
-              <PrivateRoute redirectTo='/login' component={<Phonebook />} />
+              <Phonebook />
             </Suspense>
           }
         />
@@ -64,7 +62,7 @@ export const App = () => {
           path="signup"
           element={
             <Suspense fallback={<Loading text="Loading Signup form..." />}>
-              <UserForm type="signup" />
+              <SignupPage />
             </Suspense>
           }
         />
@@ -72,7 +70,7 @@ export const App = () => {
           path="login"
           element={
             <Suspense fallback="">
-              <UserForm type="login" />
+              <LoginPage />
             </Suspense>
           }
         />
