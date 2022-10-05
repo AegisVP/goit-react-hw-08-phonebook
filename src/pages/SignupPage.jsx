@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { SectionCenter } from 'components/Common/StyledComponents';
-import { SignupForm } from 'components/AuthForms';
+import { SignupForm } from 'components/Auth';
 import { useAuth } from 'hooks/useAuth';
 
 export const SignupPage = () => {

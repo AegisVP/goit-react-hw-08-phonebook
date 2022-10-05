@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { StyledLink, StyledNavLink } from 'components/Common';
 import { HeaderBar } from './SharedLayout.styled';
-import { UserMenu } from 'components/UserMenu/UserMenu';
-import { AuthorizeLinks } from 'components/AuthorizeLinks/AuthorizeLinks';
+import { UserMenu, AuthorizeLinks } from 'components/Auth';
 import { useAuth } from 'hooks/useAuth';
 
 export const SharedLayout = () => {

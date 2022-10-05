@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { SectionCenter } from 'components/Common/StyledComponents';
-import { LoginForm } from 'components/AuthForms';
+import { LoginForm } from 'components/Auth';
 import { useAuth } from 'hooks/useAuth';
 
 export const LoginPage = () => {
