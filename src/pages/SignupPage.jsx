@@ -1,13 +1,12 @@
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedin } from 'redux/selectors';
 import { SectionCenter } from 'components/Common/StyledComponents';
 import { SignupForm } from 'components/AuthForms';
+import { useAuth } from 'hooks/useAuth';
 
 export const SignupPage = () => {
-  const isLoggedin = useSelector(selectIsLoggedin);
+  const { isLoggedIn } = useAuth();
 
-  return <SectionCenter>{isLoggedin ? <Navigate to="/phonebook" replace /> : <SignupForm />}</SectionCenter>;
+  return <SectionCenter>{isLoggedIn ? <Navigate to="/phonebook" replace /> : <SignupForm />}</SectionCenter>;
 };
 
 export default SignupPage;

@@ -44,16 +44,12 @@ export const logoutUser = createAsyncThunk('auth/logout', async (_, thunkAPI) =>
 
 export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   try {
-    console.log('running refresh operation');
     const token = thunkAPI.getState().auth.token;
 
-    console.log('token:', token);
     setAuthHeader(token);
 
-    console.log('auth header set on server');
     const res = await axios.get('users/current');
 
-    console.log('res:', res);
     return res.data;
   } catch (error) {
     clearAuthHeader();

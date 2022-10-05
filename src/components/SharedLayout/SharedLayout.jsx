@@ -3,11 +3,10 @@ import { StyledLink, StyledNavLink } from 'components/Common';
 import { HeaderBar } from './SharedLayout.styled';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { AuthorizeLinks } from 'components/AuthorizeLinks/AuthorizeLinks';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedin } from 'redux/selectors';
+import { useAuth } from 'hooks/useAuth';
 
 export const SharedLayout = () => {
-  const isLoggedIn = useSelector(selectIsLoggedin);
+  const { isLoggedIn } = useAuth();
 
   return (
     <>
@@ -18,7 +17,7 @@ export const SharedLayout = () => {
         </div>
         {isLoggedIn ? <UserMenu /> : <AuthorizeLinks />}
       </HeaderBar>
-      
+
       <Outlet />
     </>
   );

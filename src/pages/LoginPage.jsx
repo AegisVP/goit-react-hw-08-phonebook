@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedin } from 'redux/selectors';
 import { SectionCenter } from 'components/Common/StyledComponents';
 import { LoginForm } from 'components/AuthForms';
+import { useAuth } from 'hooks/useAuth';
 
 export const LoginPage = () => {
-  const isLoggedin = useSelector(selectIsLoggedin);
+  const { isLoggedIn, isRefreshing } = useAuth();
+  const shouldRedirect = isLoggedIn && !isRefreshing;
 
-  return <SectionCenter>{isLoggedin ? <Navigate to="/phonebook" replace /> : <LoginForm />}</SectionCenter>;
+  return <SectionCenter>{shouldRedirect ? <Navigate to="/phonebook" replace /> : <LoginForm />}</SectionCenter>;
 };
 
 export default LoginPage;
