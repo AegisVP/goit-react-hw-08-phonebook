@@ -39,14 +39,10 @@ const authSlice = createSlice({
       .addCase(refreshUser.pending, state => state)
 
       .addCase(refreshUser.fulfilled, (state, action) => {
-        console.log('action.payload:', action.payload);
-        console.log('action:', action);
         state.user = action.payload;
       })
 
-      .addCase(refreshUser.rejected, store => {
-        console.log('initialAuth:', initialAuth);
-      }),
+      .addCase(refreshUser.rejected, store => initialAuth),
 });
 
 export const authReducer = authSlice.reducer;

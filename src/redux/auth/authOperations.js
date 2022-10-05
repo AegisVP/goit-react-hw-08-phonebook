@@ -9,7 +9,7 @@ export const setAuthHeader = token => {
 };
 
 export const clearAuthHeader = () => {
-  console.log('clearing Authorization header');
+  console.error('clearing Authorization header');
   axios.defaults.headers.common.Authorization = '';
 };
 
@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk('auth/register', async (authdata, t
     setAuthHeader(res.data.token);
     return res.data;
   } catch (error) {
-    thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk('auth/login', async (authdata, thunkAP
     setAuthHeader(res.data.token);
     return res.data;
   } catch (error) {
-    thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -38,7 +38,7 @@ export const logoutUser = createAsyncThunk('auth/logout', async (_, thunkAPI) =>
     await axios.post('users/logout');
     clearAuthHeader();
   } catch (error) {
-    thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -46,7 +46,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
   try {
     console.log('running refresh operation');
     const token = thunkAPI.getState().auth.token;
-    
+
     console.log('token:', token);
     setAuthHeader(token);
 
@@ -57,6 +57,6 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     return res.data;
   } catch (error) {
     clearAuthHeader();
-    thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
