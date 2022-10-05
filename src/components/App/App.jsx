@@ -24,67 +24,69 @@ export const App = () => {
   }, [dispatch, isRefreshing]);
 
   return (
-    <Routes>
-      <Route
-        exact
-        path="/"
-        element={
-          <Suspense fallback={<Loading text="Loading interface..." />}>
-            <CommonLayout />
-          </Suspense>
-        }
-      >
+    !isRefreshing && (
+      <Routes>
         <Route
-          index
+          exact
+          path="/"
           element={
-            <Suspense fallback={<Loading text="Welcome to your phonebook manager" />}>
-              <HomePage />
+            <Suspense fallback={<Loading text="Loading interface..." />}>
+              <CommonLayout />
             </Suspense>
           }
-        />
-        <Route
-          path="phonebook"
-          element={
-            <Suspense fallback={<Loading text="Loading phonebook..." />}>
-              <Phonebook />
-            </Suspense>
-          }
-        />
-        <Route
-          path="phonebook/addContact"
-          element={
-            <Suspense fallback={<Loading text="Loading form..." />}>
-              <AddContact />
-            </Suspense>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <Suspense fallback={<Loading text="Loading Signup form..." />}>
-              <SignupPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="login"
-          element={
-            <Suspense fallback="">
-              <LoginPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="logout"
-          element={
-            <Suspense fallback={<Loading text="Logging out..." />}>
-              <Logout />
-            </Suspense>
-          }
-        />
-      </Route>
+        >
+          <Route
+            index
+            element={
+              <Suspense fallback={<Loading text="Welcome to your phonebook manager" />}>
+                <HomePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="phonebook"
+            element={
+              <Suspense fallback={<Loading text="Loading phonebook..." />}>
+                <Phonebook />
+              </Suspense>
+            }
+          />
+          <Route
+            path="phonebook/addContact"
+            element={
+              <Suspense fallback={<Loading text="Loading form..." />}>
+                <AddContact />
+              </Suspense>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <Suspense fallback={<Loading text="Loading Signup form..." />}>
+                <SignupPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback="">
+                <LoginPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="logout"
+            element={
+              <Suspense fallback={<Loading text="Logging out..." />}>
+                <Logout />
+              </Suspense>
+            }
+          />
+        </Route>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    )
   );
 };
