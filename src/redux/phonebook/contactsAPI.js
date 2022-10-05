@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from 'redux/baseQuery';
+import { baseQuery } from 'redux/phonebook/baseQuery';
 
 export const contactsAPI = createApi({
   reducerPath: 'contacts',
