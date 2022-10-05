@@ -14,7 +14,7 @@ export const SharedLayout = () => {
       <HeaderBar>
         <div>
           <StyledLink to="/">{'Home'}</StyledLink>
-          {isLoggedIn && <StyledNavLink to="/contacts">{'My Phonebook'}</StyledNavLink>}
+          {isLoggedIn && <StyledNavLink to="/phonebook">{'My Phonebook'}</StyledNavLink>}
         </div>
         {isLoggedIn ? <UserMenu /> : <AuthorizeLinks />}
       </HeaderBar>

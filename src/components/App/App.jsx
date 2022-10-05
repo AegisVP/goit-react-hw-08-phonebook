@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from 'components/Common/LoadingPage';
 import { refreshUser } from 'redux/auth/authOperations';
 import { selectIsRefreshingUser } from 'redux/selectors';
+import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const CommonLayout = lazy(() => import('pages/CommonLayout'));
@@ -44,15 +45,15 @@ export const App = () => {
           }
         />
         <Route
-          path="contacts"
+          path="phonebook"
           element={
             <Suspense fallback={<Loading text="Loading phonebook..." />}>
-              <Phonebook />
+              <PrivateRoute redirectTo='/login' component={<Phonebook />} />
             </Suspense>
           }
         />
         <Route
-          path="contacts/add"
+          path="phonebook/addContact"
           element={
             <Suspense fallback={<Loading text="Loading form..." />}>
               <AddContact />
