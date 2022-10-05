@@ -1,4 +1,4 @@
-import { initialAuth, initialUser } from 'redux/constants';
+import { initialAuth } from 'redux/constants';
 import { loginUser, logoutUser, refreshUser, registerUser } from './authOperations';
 
 const { createSlice } = require('@reduxjs/toolkit');
@@ -9,40 +9,22 @@ const authSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(registerUser.pending, state => state)
-
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.user.name = action.payload.user.name;
-        state.user.email = action.payload.user.email;
-        state.token = action.payload.token;
-      })
-
       .addCase(registerUser.rejected, state => state)
+      .addCase(registerUser.fulfilled, (_, action) => action.payload)
 
       .addCase(loginUser.pending, state => state)
-
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-      })
-
       .addCase(loginUser.rejected, state => state)
-
-      .addCase(logoutUser.pending, state => state)
-
-      .addCase(logoutUser.fulfilled, state => {
-        state.user = initialUser;
-        state.token = null;
-      })
-
-      .addCase(logoutUser.rejected, state => state)
+      .addCase(loginUser.fulfilled, (_, action) => action.payload)
 
       .addCase(refreshUser.pending, state => state)
-
+      .addCase(refreshUser.rejected, () => initialAuth)
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
 
-      .addCase(refreshUser.rejected, store => initialAuth),
+      .addCase(logoutUser.pending, state => state)
+      .addCase(logoutUser.rejected, state => state)
+      .addCase(logoutUser.fulfilled, () => initialAuth),
 });
 
 export const authReducer = authSlice.reducer;
