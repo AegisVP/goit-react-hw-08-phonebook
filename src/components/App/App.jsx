@@ -1,10 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from 'components/Common/LoadingPage';
 import { refreshUser } from 'redux/auth/authOperations';
-import { selectIsRefreshingUser, selectToken } from 'redux/selectors';
-import { debug } from 'utils/debug';
+import { selectIsRefreshingUser } from 'redux/selectors';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const CommonLayout = lazy(() => import('pages/CommonLayout'));
@@ -15,16 +14,15 @@ const Logout = lazy(() => import('pages/Logout'));
 
 export const App = () => {
   const isRefreshing = useSelector(selectIsRefreshingUser);
-  const token = useSelector(selectToken);
   const dispatch = useDispatch();
 
-  debug('isRefreshing:', isRefreshing);
+  useEffect(() => {
+    if (!isRefreshing) return;
 
-  if (isRefreshing) {
-    debug(' - Dispatching refreshUser');
-    dispatch(refreshUser(token));
-    debug(' - Finished refreshUser');
-  }
+    console.log(' - Dispatching refreshUser');
+    dispatch(refreshUser());
+    console.log(' - Finished refreshUser');
+  }, [dispatch, isRefreshing]);
 
   return (
     <Routes>
