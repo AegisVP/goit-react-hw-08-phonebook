@@ -4,12 +4,10 @@ const axios = require('axios');
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export const setAuthHeader = token => {
-  console.log(`setting token ${token} to Authorization header`);
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export const clearAuthHeader = () => {
-  console.error('clearing Authorization header');
   axios.defaults.headers.common.Authorization = '';
 };
 
