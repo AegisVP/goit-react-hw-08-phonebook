@@ -4,35 +4,39 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './auth/authSlice';
-import { contactsAPI } from './phonebook/contactsAPI';
-
-const phonebookReducer = combineReducers({
-  [contactsAPI.reducerPath]: contactsAPI.reducer,
-});
+import { contactsReducer } from './phonebook/contactsSlice';
+import { filterReducer } from './phonebook/filterSlice';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
 };
-
 const presistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
-export const store = configureStore({
-  reducer: {
-    phonebook: phonebookReducer,
-    auth: presistedAuthReducer,
-  },
-
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-
-  // middleware: getDefaultMiddleware => [...getDefaultMiddleware(), contactsAPI.middleware],
+const phonebookReducer = combineReducers({
+  contacts: contactsReducer,
+  filter: filterReducer,
 });
+
+const rootReducer = combineReducers({
+  phonebook: phonebookReducer,
+  auth: presistedAuthReducer,
+});
+
+export const store = configureStore(
+  {
+    reducer: rootReducer,
+
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  },
+  // applyMiddleware(contactsAPI.middleware),
+);
 
 export const persistor = persistStore(store);
 

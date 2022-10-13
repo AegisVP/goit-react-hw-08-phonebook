@@ -1,7 +1,7 @@
 import { useAuth } from 'hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { logoutUser } from 'redux/auth/authOperations';
+import { logoutUser } from 'redux/operations';
 
 export const Logout = () => {
   const { isLoggedIn } = useAuth();

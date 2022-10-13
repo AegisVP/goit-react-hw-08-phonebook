@@ -1,11 +1,11 @@
-import { initialAuth } from 'redux/constants';
-import { loginUser, logoutUser, refreshUser, registerUser } from './authOperations';
+import { CONST } from 'redux/constants';
+import { loginUser, logoutUser, refreshUser, registerUser } from 'redux/operations';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: initialAuth,
+  initialState: CONST.initialAuth,
   extraReducers: builder =>
     builder
       .addCase(registerUser.pending, state => state)
@@ -17,14 +17,14 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (_, action) => action.payload)
 
       .addCase(refreshUser.pending, state => state)
-      .addCase(refreshUser.rejected, () => initialAuth)
+      .addCase(refreshUser.rejected, () => CONST.initialAuth)
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
 
       .addCase(logoutUser.pending, state => state)
       .addCase(logoutUser.rejected, state => state)
-      .addCase(logoutUser.fulfilled, () => initialAuth),
+      .addCase(logoutUser.fulfilled, () => CONST.initialAuth),
 });
 
 export const authReducer = authSlice.reducer;

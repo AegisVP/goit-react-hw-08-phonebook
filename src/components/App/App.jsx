@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Loading } from 'components/Common/LoadingPage';
-import { refreshUser } from 'redux/auth/authOperations';
+import { refreshUser } from 'redux/operations';
 import { useAuth } from 'hooks/useAuth';
 
 const HomePage = lazy(() => import('pages/HomePage'));
@@ -10,7 +10,6 @@ const LoginPage = lazy(() => import('pages/LoginPage'));
 const SignupPage = lazy(() => import('pages/SignupPage'));
 const CommonLayout = lazy(() => import('pages/CommonLayout'));
 const Phonebook = lazy(() => import('pages/Phonebook'));
-const AddContact = lazy(() => import('pages/AddContact'));
 const Logout = lazy(() => import('pages/Logout'));
 
 export const App = () => {
@@ -51,14 +50,7 @@ export const App = () => {
               </Suspense>
             }
           />
-          <Route
-            path="phonebook/addContact"
-            element={
-              <Suspense fallback={<Loading text="Loading form..." />}>
-                <AddContact />
-              </Suspense>
-            }
-          />
+          <Route path="phonebook/addContact" element={<Navigate to="phonebook" />} />
           <Route
             path="signup"
             element={

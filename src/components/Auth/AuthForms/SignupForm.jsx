@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { registerUser } from 'redux/auth/authOperations';
+import { registerUser } from 'redux/operations';
 import { SectionCenter, StyledForm, StyledLabel, StyledInput, StyledButton } from 'components/Common';
 
 export const SignupForm = () => {
