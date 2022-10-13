@@ -10,8 +10,8 @@ export const StyledForm = styled.form`
   width: 450px;
 
   border: none;
-  border-radius: ${p => p.theme.radii.normal};
-  box-shadow: 3px 2px 7px rgba(0, 0, 0, 0.2);
+  /* border-radius: ${p => p.theme.radii.normal};
+  box-shadow: 3px 2px 7px rgba(0, 0, 0, 0.2); */
 `;
 
 export const StyledLabel = styled.label`
@@ -21,7 +21,7 @@ export const StyledLabel = styled.label`
 
   padding: ${p => p.theme.mp(2, 0, 1)};
 
-  font-size: ${p => p.theme.fontSizes.m};
+  font-size: ${p => p.theme.fontSizes.l};
   font-weight: ${p => p.theme.fontWeights.bold};
 `;
 
@@ -29,19 +29,23 @@ export const StyledInput = styled.input`
   margin: ${p => p.theme.mp(0, 0, 0, 3)};
   padding: ${p => p.theme.mp(1, 2)};
 
-  font-size: ${p => p.theme.fontSizes.m};
+  font-size: ${p => p.theme.fontSizes.l};
   font-weight: ${p => p.theme.fontWeights.normal};
 
-  outline: 1px solid black;
+  outline: 1px solid #000000;
   border: none;
   border-radius: ${p => p.theme.radii.normal};
 `;
 
 export const StyledButton = styled.button`
-  margin: ${p => p.theme.mp(3, 'auto', 2)};
-  padding: ${p => p.theme.mp(1, 3)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  font-size: ${p => p.theme.fontSizes.m};
+  margin: ${p => p.theme.mp(3, 'auto', 2)};
+  padding: ${p => p.theme.mp(2, 3)};
+
+  font-size: ${p => p.theme.fontSizes.l};
   font-weight: ${p => p.theme.fontWeights.bold};
 
   outline: none;
@@ -49,6 +53,8 @@ export const StyledButton = styled.button`
   border-radius: ${p => p.theme.radii.normal};
 
   background-color: ${p => p.theme.colors.buttonColor};
+
+  transition: box-shadow ${p => p.theme.animation.normal}, background-color ${p => p.theme.animation.fast};
 
   &:hover,
   &:focus {

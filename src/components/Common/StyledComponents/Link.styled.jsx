@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export const StyledLink = styled(NavLink)`
   position: relative;
   padding: ${p => p.theme.mp(1, 3)};
-  font-size: ${p => p.theme.fontSizes.l};
+  font-size: ${p => p.theme.fontSizes.xl};
   font-weight: ${p => p.theme.fontWeights.bold};
   text-decoration: none;
   color: ${p => p.theme.colors.defaultText};
@@ -13,7 +13,7 @@ export const StyledLink = styled(NavLink)`
 export const StyledNavLink = styled(NavLink)`
   position: relative;
   padding: ${p => p.theme.mp(1, 3)};
-  font-size: ${p => p.theme.fontSizes.l};
+  font-size: ${p => p.theme.fontSizes.xl};
   font-weight: ${p => p.theme.fontWeights.bold};
   text-decoration: none;
   color: ${p => p.theme.colors.defaultText};

@@ -8,16 +8,17 @@ export const theme = {
     pageBackground: '#ffffff',
     pageBackgroundAccent: '#88bbff',
     buttonColor: '#80b3f0',
-    buttonColorAccent: '#90c3cff',
+    buttonColorAccent: '#90c3ff',
     buttonColorActive: '#ffee55',
   },
   fontSizes: {
     s: '12px',
     m: '16px',
-    l: '24px',
-    xl: '36px',
-    xxl: '58px',
-    xxxl: '96px',
+    l: '18px',
+    xl: '24px',
+    xxl: '36px',
+    xxxl: '58px',
+    xxxxl: '96px',
   },
   fontWeights: {
     normal: 400,
@@ -31,6 +32,12 @@ export const theme = {
     round: '50%',
   },
   mp: returnParams,
+  animation: {
+    fast: '150ms ease-in-out',
+    normal: '250ms ease-in-out',
+    long: '450ms ease-in-out',
+  },
+  shadow: { default: '1px 1px 3px rgba(0, 0, 0, 0.4)' },
 };
 
 function returnParams(...sizes) {
