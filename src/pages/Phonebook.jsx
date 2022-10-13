@@ -4,6 +4,7 @@ import { AddContactForm } from 'components/Phonebook/AddContactForm/AddContactFo
 import { ContactList } from 'components/Phonebook/ContactList/ContactList';
 import { Filter } from 'components/Phonebook/Filter/Filter';
 import { Toolbar } from 'components/Toolbar/Toolbar';
+import { useAuth } from 'hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CONST } from 'redux/constants';
@@ -14,6 +15,7 @@ export const Phonebook = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const { search } = useSelector(selectFilter);
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState();
   const [isAdding, setIsAdding] = useState(false);
   const [filteredContacts, setFilteredContacts] = useState([]);
@@ -27,8 +29,7 @@ export const Phonebook = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-    return (() => dispatch(fetchContacts()));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleModalClose = e => {
     setIsModalOpen(false);
