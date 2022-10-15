@@ -43,13 +43,13 @@ export const Phonebook = () => {
     const isNameInContacts = contacts.some(contact => contact.name.toLocaleLowerCase() === name.value.trim().toLocaleLowerCase());
 
     if (isNameInContacts) {
-      window.alert('This name already exists in the list!');
+      setTimeout(() => { window.alert('This name already exists in the list!'); },100) ;
       return;
     }
 
-    await setIsAdding(true);
+    setIsAdding(true);
     await dispatch(addContact({ name: name.value, number: number.value }));
-    await setIsAdding(false);
+    setIsAdding(false);
     handleModalClose();
     dispatch(fetchContacts());
   };

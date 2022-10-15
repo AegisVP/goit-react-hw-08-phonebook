@@ -11,7 +11,7 @@ export const Contact = ({ contact }) => {
 
   const handleDelete = async id => {
     console.log('id', id);
-    await setIsLoading(true);
+    setIsLoading(true);
     await dispatch(deleteContact(id));
     await dispatch(fetchContacts());
     setIsLoading(false);
