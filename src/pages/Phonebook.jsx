@@ -84,7 +84,7 @@ export const Phonebook = () => {
         <StyledHeading>Your phonebook is empty</StyledHeading>
       )}
 
-      <Modal isModalOpen={isModalOpen} handleClose={handleModalClose} title="modal title">
+      <Modal isModalOpen={isModalOpen} handleClose={handleModalClose} title="Add new contact">
         <AddContactForm isLoading={isAdding} handleSubmit={handleAddContactSubmit} />
       </Modal>
     </>
