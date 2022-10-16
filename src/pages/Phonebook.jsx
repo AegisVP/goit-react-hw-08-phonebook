@@ -1,3 +1,4 @@
+import { StyledHeading } from 'components/Common';
 import { IconButton } from 'components/Common/StyledComponents/IconButton.styled';
 import { Modal } from 'components/Modal/Modal';
 import { AddContactForm } from 'components/Phonebook/AddContactForm/AddContactForm';
@@ -21,10 +22,17 @@ export const Phonebook = () => {
   const [filteredContacts, setFilteredContacts] = useState([]);
 
   useEffect(() => {
-    if (contacts?.length > 0)
+    if (contacts?.length > 0) {
       setFilteredContacts(
-        contacts.filter(contact => contact.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).sort((a, b) => a.name.localeCompare(b.name))
+        [
+          ...contacts
+            .filter(contact => contact.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        ].sort()
       );
+    } else {
+      setFilteredContacts([]);
+    }
   }, [contacts, search]);
 
   useEffect(() => {
@@ -35,7 +43,7 @@ export const Phonebook = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddContactSubmit = async (e) => {
+  const handleAddContactSubmit = async e => {
     e.preventDefault();
     const form = e.currentTarget;
     const { name, number } = form.elements;
@@ -43,7 +51,9 @@ export const Phonebook = () => {
     const isNameInContacts = contacts.some(contact => contact.name.toLocaleLowerCase() === name.value.trim().toLocaleLowerCase());
 
     if (isNameInContacts) {
-      setTimeout(() => { window.alert('This name already exists in the list!'); },100) ;
+      setTimeout(() => {
+        window.alert('This name already exists in the list!');
+      }, 100);
       return;
     }
 
@@ -63,7 +73,7 @@ export const Phonebook = () => {
         </IconButton>
       </Toolbar>
 
-      <ContactList contacts={filteredContacts.sort()} />
+      {filteredContacts.length > 0 ? <ContactList contacts={filteredContacts} /> : <StyledHeading>Your phonebook is empty</StyledHeading>}
 
       <Modal isModalOpen={isModalOpen} handleClose={handleModalClose} title="modal title">
         <AddContactForm isLoading={isAdding} handleSubmit={handleAddContactSubmit} />
