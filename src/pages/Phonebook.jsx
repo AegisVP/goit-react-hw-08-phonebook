@@ -8,6 +8,7 @@ import { Toolbar } from 'components/Toolbar/Toolbar';
 import { useAuth } from 'hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { CONST } from 'redux/constants';
 import { addContact, fetchContacts } from 'redux/operations';
 import { selectContacts, selectFilter } from 'redux/selectors';
@@ -16,7 +17,7 @@ export const Phonebook = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const { search } = useSelector(selectFilter);
-  const { user } = useAuth();
+  const user = useAuth();
   const [isModalOpen, setIsModalOpen] = useState();
   const [isAdding, setIsAdding] = useState(false);
   const [filteredContacts, setFilteredContacts] = useState([]);
@@ -37,7 +38,7 @@ export const Phonebook = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch, user]);
+  }, [dispatch, user.token]);
 
   const handleModalClose = e => {
     setIsModalOpen(false);
@@ -58,13 +59,15 @@ export const Phonebook = () => {
     }
 
     setIsAdding(true);
-    await dispatch(addContact({ name: name.value, number: number.value }));
+    dispatch(addContact({ name: name.value, number: number.value }));
     setIsAdding(false);
     handleModalClose();
     dispatch(fetchContacts());
   };
 
-  return (
+  return !user.isLoggedIn && !user.isRefreshing ? (
+    <Navigate to="/login" />
+  ) : (
     <>
       <Toolbar>
         <Filter />
@@ -73,7 +76,13 @@ export const Phonebook = () => {
         </IconButton>
       </Toolbar>
 
-      {filteredContacts.length > 0 ? <ContactList contacts={filteredContacts} /> : <StyledHeading>Your phonebook is empty</StyledHeading>}
+      {filteredContacts.length > 0 ? (
+        <ContactList contacts={filteredContacts} />
+      ) : contacts.length > 0 ? (
+        <StyledHeading>Nothing found</StyledHeading>
+      ) : (
+        <StyledHeading>Your phonebook is empty</StyledHeading>
+      )}
 
       <Modal isModalOpen={isModalOpen} handleClose={handleModalClose} title="modal title">
         <AddContactForm isLoading={isAdding} handleSubmit={handleAddContactSubmit} />
